@@ -1,0 +1,10 @@
+[package]
+name = "ornith_racer"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+sdl2 = "0.37"
+
+[profile.release]
+opt-level = 3
