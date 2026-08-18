@@ -9,7 +9,7 @@ A small, informal benchmark of local language models generating a native Rust ar
 | [Qwen 3.8 27B](qwen3.8-27B-Q3-K-M/) | Q3-K-M | ~10 tok/s | ~12 h | **Playable** |
 | [Ornith 1.0 35B](ornith-1-35B-IQ3-XXS/) | IQ3-XXS | ~50 tok/s | ~4 h | Runs, but not playable |
 | [Muse-Glimmer 30B](muse-glimmer-30B-IQ3-M/) | IQ3-M | ~13 tok/s | ~5 h | Prototype only |
-| [Gemma 4 31B](gemma-4-31b-it-Q3-K-S) | Q3-K-M | ~8 tok/s | ~5 h | Runs, but not playable |
+| [Gemma 4 31B](gemma-4-31b-it-Q3-K-S) | Q3-K-M | ~8 tok/s | ~2 h | Runs, but not playable |
 
 ## The Prompt
 
@@ -60,7 +60,7 @@ A small, informal benchmark of local language models generating a native Rust ar
 ### Gemma 4 31B
 
 - Unsloth version, 15.5 GB, 100k context window
-- Runs at approximately 8 tok/s; build time was about 3 hours
+- Runs at approximately 8 tok/s; build time was about 2 hours
 - Engine: macroquad
 - Application runs but not playable
 - Player is a cube nothing else on screen
