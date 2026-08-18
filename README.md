@@ -1,60 +1,58 @@
-# Testbed for local llms
+# Local LLM Bench
 
+A small, informal benchmark of local language models generating a native Rust arcade racer from a single prompt. The target was a playable, sound-enabled game inspired by the software-rendered style of the 1990 Amiga game *Lotus Esprit Turbo Challenge*.
 
-## Prompt
+## At a Glance
 
-"Implement a racer game in the style of the 1990 amiga game Lotus Esprit Turbo Challenge. Don't use 3D graphics use the style and technique of that time. Singleplayer mode only, full playable game with sounds. Build a native rust application."
+| Model | Quantization | Speed | Build time | Outcome |
+| --- | --- | ---: | ---: | --- |
+| [Qwen 3.8 27B](qwen3.8-27B-Q3-K-M/) | Q3-K-M | ~10 tok/s | ~12 h | **Playable** |
+| [Ornith 1.0 35B](ornith-1.0-35B-IQ3_XXS/) | IQ3-XXS | ~50 tok/s | ~4 h | Runs, but not playable |
+| [Muse-Glimmer 30B](muse-glimmer-30B-IQ3-M/) | IQ3-M | ~13 tok/s | ~5 h | Prototype only |
 
-## Approach
+## The Prompt
 
-- plan mode first, then implementation in one go
-- no correction afterwards, evaluation as is
+> Implement a racer game in the style of the 1990 Amiga game *Lotus Esprit Turbo Challenge*. Do not use 3D graphics; use the style and techniques of that time. Single-player mode only, with a fully playable game and sounds. Build a native Rust application.
 
-## Testsystem
-- Macbook Pro M4 Max 36GB
+## Method
+
+- Plan first, then implement in one pass.
+- Do not provide corrections after the initial implementation.
+- Evaluate each result as generated.
+
+## Test Environment
+
+- MacBook Pro with M4 Max and 36 GB RAM
 - LM Studio
 - opencode
 
-## Models
+## Results
 
-### Qwen 3.8-27B
-- Q3-K-M
-- unsloth version
-- 14.7GB
-- 120k context window
-- ~10t/s
-- build time: ~12h
+### Qwen 3.8 27B
 
-Result:
-- complete game runs and is playable
-- correct car behavior (get slower outside track, drifts in bends)
-- correct visuals
-- minor issues only: main menue does not allow track selection, car oppenents way to slow, no speed change on collision
-- ai wrote headless helpers to check visuals and debug issues
+- Unsloth version, 14.7 GB, 120k context window
+- Runs at approximately 10 tok/s; build time was about 12 hours
+- Complete, playable game with convincing visuals
+- Car slows off-road and drifts through bends
+- Minor issues: track selection is unavailable from the main menu, opponents are too slow, and collisions do not change speed
+- Added headless helpers for visual checks and debugging
 
-### Ornith 1.0-35B
-- IQ3-XXS
-- unsloth version
-- 15.5GB
-- 100k context window
-- ~50t/s
-- build time: ~4h
+### Ornith 1.0 35B
 
-Result:
-- runs but not playable
-- visuals broken
+- Unsloth version, 15.5 GB, 100k context window
+- Runs at approximately 50 tok/s; build time was about 4 hours
+- Application runs, but the game is not playable
+- Visual output is broken
 
-### Muse-Glimmer-30B
-- IQ3-M
-- unsloth version
-- 15.5GB
-- 100k context window
-- ~13t/s
-- build time: ~5h
+### Muse-Glimmer 30B
 
+- Unsloth version, 15.5 GB, 100k context window
+- Runs at approximately 13 tok/s; build time was about 5 hours
+- Application runs and is technically playable
+- Player is a dot that moves between three positions on the horizon
+- Opponents are dots that move downward without meaningful interaction
+- No menu, sound, or real gameplay systems
 
-Result:
-- app runs and is "playable"
-- player is a dot that moves to 3 positions on a horizon
-- opponents are dots that have no real influence and move down
-- no menue, sound or gameplay
+## Notes
+
+This is a practical snapshot rather than a controlled scientific benchmark. Build time includes generation and implementation time, and the results were not improved through follow-up correction passes.
